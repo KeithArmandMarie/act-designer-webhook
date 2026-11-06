@@ -172,9 +172,7 @@ module.exports = async (req, res) => {
     submittedAt: Date.now(),
     fields,
     context: {
-      pageUri:
-        withProtocol(payload.OnlineDesignerBuildingUrl) ||
-        "https://designer.actbuildingsystems.com/",
+      pageUri: "https://butlermetalbuildings.com/",
       pageName: "ACT Online Designer Quote",
     },
   };
