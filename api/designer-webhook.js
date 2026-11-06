@@ -140,6 +140,16 @@ module.exports = async (req, res) => {
 
   // HubSpot needs an email to create a contact. Retrying would not fix this,
   // so answer 200 and log it. The lead still exists in the ACT system.
+const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+payload = Object.keys(payload).reduce((o, k) => {
+  o[cap(k)] = payload[k];
+  return o;
+}, {});
+payload.QuoteQuestionResponses = (payload.QuoteQuestionResponses || []).map((q) => ({
+  Question: q.Question || q.question,
+  Response: q.Response || q.response,
+}));
+  
   console.log("Payload keys", Object.keys(payload).join(","), "type", req.headers["content-type"]);
   if (!clean(payload.EmailAddress)) {
     console.error("No email on lead", payload.LeadId);
